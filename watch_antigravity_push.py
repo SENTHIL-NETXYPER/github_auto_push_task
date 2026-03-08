@@ -4,7 +4,10 @@ import os
 import subprocess
 from datetime import datetime
 
-PROJECT_PATH = r"D:\THAT I CAN\automationa"
+# Correct project folder
+PROJECT_PATH = r"D:\THAT I CAN\automation"
+
+# Process name of the software
 PROCESS_NAME = "Antigravity.exe"
 
 print("Monitoring AntiGravity...")
@@ -27,15 +30,22 @@ while is_running():
 
 print("AntiGravity closed. Pushing code to GitHub...")
 
-PROJECT_PATH = r"D:\THAT I CAN\automation" 
+# Move to project directory
 os.chdir(PROJECT_PATH)
 
+# Stage changes
 subprocess.run(["git", "add", "."])
 
+# Create commit message with timestamp
 commit_message = "Auto commit " + datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+# Commit changes
 subprocess.run(["git", "commit", "-m", commit_message])
 
+# Push to GitHub
 subprocess.run(["git", "push", "origin", "main"])
 
-print("Push completed.")
+print("Push completed successfully.")
+
+# Prevent terminal from closing immediately
+input("Press Enter to exit...")
