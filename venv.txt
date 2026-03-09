@@ -1,0 +1,26 @@
+## Setup
+
+Create a virtual environment and install dependencies.
+
+```bash
+# create virtual environment
+python -m venv venv
+
+# activate environment (Windows)
+venv\Scripts\activate
+
+# install required packages
+pip install requests
+```
+
+Verify installation location:
+
+```bash
+pip show requests
+```
+
+Expected output should contain:
+
+```
+Location: ./venv/Lib/site-packages
+```

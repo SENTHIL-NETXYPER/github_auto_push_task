@@ -1,0 +1,178 @@
+# LeetCode Daily Problem Automation
+
+## Overview
+
+This automation script automatically fetches the **LeetCode Daily Challenge problem** and opens it in the browser.
+Instead of manually visiting the website every day, the script retrieves the problem directly from the **LeetCode GraphQL API** and launches the problem page.
+
+---
+
+# Technologies Used
+
+* Python
+* Requests Library
+* LeetCode GraphQL API
+* Virtual Environment (venv)
+* Windows Batch Script
+
+---
+
+# Project Structure
+
+```
+automation/
+│
+├── venv/                  # Python virtual environment
+├── leedcode.py            # Main automation script
+├── start_watcher.bat      # Script to run automation
+├── auto_push_after_close.py
+├── check.py
+└── README.md
+```
+
+---
+
+# Environment Setup
+
+Create a virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate the virtual environment (Windows):
+
+```bash
+venv\Scripts\activate
+```
+
+Install required dependencies:
+
+```bash
+pip install requests
+```
+
+Verify installation location:
+
+```bash
+pip show requests
+```
+
+Expected output:
+
+```
+Location: ./venv/Lib/site-packages
+```
+
+---
+
+# How the Automation Works
+
+The script performs the following steps:
+
+1. Sends a request to the **LeetCode GraphQL API**
+2. Retrieves today's daily challenge problem
+3. Extracts the **problem slug**
+4. Constructs the problem URL
+5. Opens the problem automatically in the browser
+
+---
+
+# GraphQL Endpoint Used
+
+```
+https://leetcode.com/graphql
+```
+
+GraphQL Query:
+
+```
+query questionOfToday {
+  activeDailyCodingChallengeQuestion {
+    date
+    question {
+      title
+      titleSlug
+    }
+  }
+}
+```
+
+---
+
+# Python Automation Script
+
+```
+import requests
+import webbrowser
+
+url = "https://leetcode.com/graphql"
+
+query = """
+query questionOfToday {
+  activeDailyCodingChallengeQuestion {
+    date
+    question {
+      title
+      titleSlug
+    }
+  }
+}
+"""
+
+response = requests.post(url, json={"query": query})
+data = response.json()
+
+slug = data["data"]["activeDailyCodingChallengeQuestion"]["question"]["titleSlug"]
+
+problem_url = f"https://leetcode.com/problems/{slug}/"
+
+print("Today's Problem:", problem_url)
+
+webbrowser.open(problem_url)
+```
+
+---
+
+# Running the Automation
+
+Run the script manually:
+
+```bash
+python leedcode.py
+```
+
+---
+
+# Optional Automation on System Startup
+
+Create a batch file `start_watcher.bat`:
+
+```
+@echo off
+cd /d D:\THAT I CAN\automation
+venv\Scripts\python leedcode.py
+```
+
+Add the batch file to the **Windows Startup folder**:
+
+```
+Win + R
+shell:startup
+```
+
+Place the `.bat` file in that folder.
+
+Now the script runs automatically when the system starts.
+
+---
+
+# Result
+
+When the script runs:
+
+* It fetches the **current daily challenge**
+* Builds the problem URL
+* Opens the problem page automatically in the browser
+
+This removes the need to manually search for the daily problem.
