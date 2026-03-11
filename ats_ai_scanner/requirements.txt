@@ -4,3 +4,4 @@ pdfminer.six
 spacy
 sentence-transformers
 scikit-learn
+streamlit
