@@ -1,0 +1,6 @@
+groq
+python-dotenv
+pdfminer.six
+spacy
+sentence-transformers
+scikit-learn
